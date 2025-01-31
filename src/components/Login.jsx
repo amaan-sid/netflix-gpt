@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Home from "./Home";
 import { Link, useNavigate } from "react-router-dom";
 import { formValidation } from "../utils/formValidate";
@@ -8,7 +8,9 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
 const Login = () => {
+  const dispatch = useDispatch();
   const [isSignInForm, setisSignInForm] = useState(true);
   const [errorMessage, seterrorMessage] = useState(null);
   const navigate = useNavigate();
@@ -31,15 +33,15 @@ const Login = () => {
           // Signed up
           const user = userCredential.user;
           console.log("User: ", user);
-          navigate("/browse");
-          console.log("Navigating to /browse...");
+          // navigate("/browse");
+          // console.log("Navigating to /browse...");
 
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errMessage = error.message;
-          seterrorMessage(errMessage)
+          seterrorMessage(errMessage);
           // ..
         });
     } else {
@@ -52,8 +54,9 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("User: ", user);
-          navigate("/browse");
-          console.log("Navigating to /browse...");
+          // console.log(user)
+          // navigate("/browse");
+          // console.log("Navigating to /browse...");
 
           // ...
         })
@@ -84,7 +87,6 @@ const Login = () => {
                 className="p-2 my-2 rounded bg-gray-400 w-5/6 translate-x-1/12"
               />{" "}
               <br />
-              
             </div>
           )}
           <input
@@ -109,7 +111,7 @@ const Login = () => {
               handleclickbtn(event);
             }}
           >
-            {isSignInForm ? "Sign In" : "Sign Up"}
+            {isSignInForm ? "Log In" : "Sign Up"}
           </button>
           <p className="my-2 mx-4">
             {" "}
@@ -123,7 +125,7 @@ const Login = () => {
                 toggleForm();
               }}
             >
-              {!isSignInForm ? "Sign In" : "Sign Up"}
+              {!isSignInForm ? "Log In" : "Sign Up"}
             </button>{" "}
           </p>
           {/* {isSignInForm && (

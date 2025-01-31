@@ -7,26 +7,27 @@ import { useDispatch } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Browse from './Browse';
+import { home_bg_img } from '../utils/constants';
 const Home = () => {
   const dispatch = useDispatch()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
-        const {uid, email, displayName} = user;
+        const {uid, email, displayName, photoURL} = user;
         // const name = displayName || "Anonymous User";
         dispatch(addUser({uid : uid, email : email, displayName : displayName} )) 
-        // navigate("/browse")
+        // console.log(photoURL)
+        navigate("/browse")
         
         // ...
       } else {
         // User is signed out
         dispatch(removeUser())
-        // navigate("/")
+        navigate("/")
       }
     });
-    return () => unsubscribe();
   },[])
 
   return (
@@ -36,7 +37,7 @@ const Home = () => {
       <div>
         <img
           className="opacity-90 absolute top-0 left-0 "
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/7a8c0067-a424-4e04-85f8-9e25a49a86ed/web/IN-en-20250120-TRIFECTA-perspective_860a95da-c386-446e-af83-fef8ddd80803_large.jpg"
+          src={home_bg_img}
           alt=""
         />
         {/* Overlay */}
