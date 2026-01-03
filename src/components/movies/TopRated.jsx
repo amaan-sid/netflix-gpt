@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
-import { API_KEY } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
+import { API_KEY } from "@/utils/constants";
 
 const TopRated = () => {
   const navigate = useNavigate();
